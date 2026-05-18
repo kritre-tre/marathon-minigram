@@ -1,0 +1,52 @@
+<!--pages/admin-audit-detail/admin-audit-detail.wxml-->
+<view class="container">
+  <scroll-view scroll-y class="scroll-view">
+    <view wx:if="{{loading}}" class="loading-tip">加载中...</view>
+
+    <block wx:if="{{!loading && item}}">
+      <!-- 状态标签 -->
+      <view class="status-bar {{getStatusClass(item.status)}}">
+        <text>{{getStatusText(item.status)}}</text>
+      </view>
+
+      <!-- 主题帖详情 -->
+      <view class="card" wx:if="{{type === 'post'}}">
+        <view class="detail-title">{{item.title}}</view>
+        <view class="detail-meta">{{item.author}} · {{item.time}}</view>
+        <view class="divider"></view>
+        <view class="detail-content">{{item.content}}</view>
+      </view>
+
+      <!-- 评论详情 -->
+      <view class="card" wx:if="{{type === 'comment'}}">
+        <view class="detail-section-title">评论内容</view>
+        <view class="detail-content">{{item.content}}</view>
+        <view class="divider"></view>
+        <view class="detail-meta">作者：{{item.author}} · {{item.time}}</view>
+        <view class="detail-meta">所属帖子：{{item.postTitle}}</view>
+      </view>
+
+      <!-- 赛事详情 -->
+      <view class="card" wx:if="{{type === 'activity'}}">
+        <view class="detail-title">{{item.name}}</view>
+        <view class="detail-meta">{{item.type}} · {{item.city}} · {{item.address}}</view>
+        <view class="detail-meta">日期：{{item.date}} · 报名截止：{{item.deadline}}</view>
+        <view class="detail-meta">规模：{{item.count}}人 · 提交者：{{item.submitter}}</view>
+        <view class="divider"></view>
+        <view class="detail-section-title">赛事简介</view>
+        <view class="detail-content">{{item.intro}}</view>
+        <view class="divider"></view>
+        <view class="detail-section-title">赛事详情</view>
+        <view class="detail-content" style="white-space:pre-line">{{item.detail}}</view>
+      </view>
+
+      <!-- 审核操作按钮（仅待审核状态显示） -->
+      <view class="action-bar" wx:if="{{item.status === 'pending'}}">
+        <button class="btn-approve" bindtap="onApprove">审核通过</button>
+        <button class="btn-reject" bindtap="onReject">拒绝</button>
+      </view>
+    </block>
+
+    <view wx:if="{{!loading && !item}}" class="loading-tip">未找到该内容</view>
+  </scroll-view>
+</view>

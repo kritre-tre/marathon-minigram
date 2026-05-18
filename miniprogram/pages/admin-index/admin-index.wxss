@@ -1,0 +1,177 @@
+/* pages/admin-index/admin-index.wxss */
+.container {
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+.scroll-view {
+  height: 100vh;
+  padding-bottom: 160rpx;
+}
+
+/* 欢迎横幅区 */
+.banner-container {
+  width: 100%;
+  height: 280rpx;
+  padding: 20rpx 30rpx;
+  box-sizing: border-box;
+}
+
+.banner-item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20rpx;
+  background: linear-gradient(135deg, #ba7c7b, #d89694);
+  box-shadow: 0 4rpx 12rpx rgba(186, 124, 123, 0.3);
+}
+
+.banner-content {
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.banner-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-bottom: 16rpx;
+}
+
+.banner-subtitle {
+  font-size: 28rpx;
+  opacity: 0.9;
+}
+
+/* 区块标题 */
+.section-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: var(--text-primary);
+  padding: 30rpx;
+}
+
+/* 统计卡片网格 */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.stat-card {
+  background: var(--background-white);
+  border-radius: 20rpx;
+  padding: 28rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+}
+
+.stat-number {
+  font-size: 52rpx;
+  font-weight: bold;
+  color: var(--primary);
+  margin-bottom: 8rpx;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}
+
+/* 预览卡片 */
+.preview-card {
+  margin: 0 30rpx 24rpx;
+  padding: 0;
+}
+
+.preview-item {
+  padding: 24rpx;
+  border-bottom: 2rpx solid var(--divider);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.preview-item-content {
+  flex: 1;
+  min-width: 0;
+  margin-right: 20rpx;
+}
+
+.preview-item-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.status-badge {
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  margin-bottom: 12rpx;
+}
+
+.status-badge.pending {
+  background-color: #fff3e0;
+  color: #f57c00;
+}
+.status-badge.approved {
+  background-color: #e8f5e9;
+  color: #4caf50;
+}
+.status-badge.rejected {
+  background-color: #ffebee;
+  color: #f44336;
+}
+
+.btn-detail {
+  font-size: 24rpx;
+  color: var(--primary);
+  border: 1rpx solid var(--primary);
+  padding: 4rpx 24rpx;
+  border-radius: 20rpx;
+}
+
+.preview-item:last-child {
+  border-bottom: none;
+}
+
+.preview-item-title {
+  font-size: 28rpx;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 8rpx;
+}
+
+.preview-item-meta {
+  font-size: 24rpx;
+  color: var(--text-hint);
+}
+
+/* 展开全部按钮 */
+.view-more-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 30rpx;
+  border-top: 2rpx solid var(--divider);
+}
+
+.view-more-btn {
+  width: 300rpx;
+  height: 80rpx;
+  background-color: var(--background-white);
+  color: var(--primary);
+  border: 2rpx solid var(--primary);
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

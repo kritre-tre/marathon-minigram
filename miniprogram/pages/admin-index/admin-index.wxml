@@ -1,0 +1,95 @@
+<!--pages/admin-index/admin-index.wxml-->
+<view class="container">
+  <scroll-view scroll-y class="scroll-view">
+    <!-- 顶部欢迎横幅（与用户端样式类似） -->
+    <view class="banner-container">
+      <view class="banner-item">
+        <view class="banner-content">
+          <view class="banner-title">欢迎回来，管理员</view>
+          <view class="banner-subtitle">以下是当前待审核内容概览</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 统计卡片区 -->
+    <view class="stats-grid">
+      <view class="stat-card" bindtap="onCardTap" data-type="post">
+        <view class="stat-number">{{stats.pendingPosts}}</view>
+        <view class="stat-label">待审核主题帖</view>
+      </view>
+      <view class="stat-card" bindtap="onCardTap" data-type="comment">
+        <view class="stat-number">{{stats.pendingComments}}</view>
+        <view class="stat-label">待审核评论</view>
+      </view>
+      <view class="stat-card" bindtap="onCardTap" data-type="activity">
+        <view class="stat-number">{{stats.pendingActivities}}</view>
+        <view class="stat-label">待审核赛事</view>
+      </view>
+      <view class="stat-card" bindtap="onCardTap" data-type="user">
+        <view class="stat-number">{{stats.totalUsers}}</view>
+        <view class="stat-label">注册用户</view>
+      </view>
+    </view>
+
+    <!-- 待审核主题帖预览 -->
+    <view wx:if="{{recentPosts.length > 0}}">
+      <view class="section-title">待审核主题帖</view>
+      <view class="card preview-card">
+        <view class="preview-item" wx:for="{{recentPosts}}" wx:key="id">
+          <view class="preview-item-content">
+            <view class="preview-item-title">{{item.title}}</view>
+            <view class="preview-item-meta">{{item.author}} · {{item.time}}</view>
+          </view>
+          <view class="preview-item-actions">
+            <view class="status-badge {{item.status === '已审核' ? 'approved' : (item.status === '驳回' ? 'rejected' : 'pending')}}">{{item.status || '待审核'}}</view>
+            <view class="btn-detail" bindtap="onAuditItem" data-type="post" data-id="{{item.id}}">查看</view>
+          </view>
+        </view>
+        <view class="view-more-wrapper">
+          <button class="btn-secondary view-more-btn" bindtap="onCardTap" data-type="post">展开全部</button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 待审核评论预览 -->
+    <view wx:if="{{recentComments.length > 0}}">
+      <view class="section-title">待审核评论</view>
+      <view class="card preview-card">
+        <view class="preview-item" wx:for="{{recentComments}}" wx:key="id">
+          <view class="preview-item-content">
+            <view class="preview-item-title">{{item.content}}</view>
+            <view class="preview-item-meta">{{item.author}} · {{item.postTitle}}</view>
+          </view>
+          <view class="preview-item-actions">
+            <view class="status-badge {{item.status === '已审核' ? 'approved' : (item.status === '驳回' ? 'rejected' : 'pending')}}">{{item.status || '待审核'}}</view>
+            <view class="btn-detail" bindtap="onAuditItem" data-type="comment" data-id="{{item.id}}">查看</view>
+          </view>
+        </view>
+        <view class="view-more-wrapper">
+          <button class="btn-secondary view-more-btn" bindtap="onCardTap" data-type="comment">展开全部</button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 待审核赛事预览 -->
+    <view wx:if="{{recentActivities.length > 0}}">
+      <view class="section-title">待审核赛事</view>
+      <view class="card preview-card">
+        <view class="preview-item" wx:for="{{recentActivities}}" wx:key="id">
+          <view class="preview-item-content">
+            <view class="preview-item-title">{{item.name}}</view>
+            <view class="preview-item-meta">{{item.city}} · {{item.date}} · {{item.submitter}}</view>
+          </view>
+          <view class="preview-item-actions">
+            <view class="status-badge {{item.status === '已审核' ? 'approved' : (item.status === '驳回' ? 'rejected' : 'pending')}}">{{item.status || '待审核'}}</view>
+            <view class="btn-detail" bindtap="onAuditItem" data-type="activity" data-id="{{item.id}}">查看</view>
+          </view>
+        </view>
+        <view class="view-more-wrapper">
+          <button class="btn-secondary view-more-btn" bindtap="onCardTap" data-type="activity">展开全部</button>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <admin-tabbar current="dashboard" />
+</view>

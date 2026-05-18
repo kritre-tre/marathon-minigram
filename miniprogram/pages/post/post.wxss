@@ -1,0 +1,160 @@
+/* pages/post/post.wxss */
+.container {
+  min-height: 100vh;
+  background-color: var(--background);
+  display: flex;
+  flex-direction: column;
+}
+
+.page-title {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: var(--text-primary);
+  padding: 30rpx;
+}
+
+/* 搜索卡片 */
+.search-card {
+  margin: 0 20rpx 20rpx;
+  padding: 24rpx;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  height: 80rpx;
+  background-color: var(--background);
+  border: 2rpx solid var(--border);
+  border-radius: 16rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.search-btn {
+  width: 80rpx;
+  height: 80rpx;
+  background-color: var(--primary);
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 16rpx;
+  font-size: 32rpx;
+}
+
+/* 帖子列表 */
+.post-list {
+  flex: 1;
+  padding: 0 20rpx;
+  padding-bottom: 160rpx;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.post-card {
+  background-color: var(--background-white);
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* 用户信息 */
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background-color: var(--primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: var(--primary);
+}
+
+.user-name {
+  flex: 1;
+  font-size: 28rpx;
+  color: var(--text-primary);
+  margin-left: 16rpx;
+}
+
+.post-time {
+  font-size: 24rpx;
+  color: var(--text-hint);
+}
+
+/* 帖子标题 */
+.post-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 16rpx;
+}
+
+/* 帖子内容 */
+.post-content {
+  font-size: 28rpx;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+/* 操作栏 */
+.action-bar {
+  display: flex;
+  border-top: 2rpx solid var(--divider);
+  padding-top: 20rpx;
+}
+
+.action-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+}
+
+.action-count {
+  margin-left: 8rpx;
+  color: var(--text-secondary);
+}
+
+/* 浮动按钮 */
+.fab {
+  position: fixed;
+  right: 40rpx;
+  bottom: 200rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background-color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(232, 165, 165, 0.5);
+  z-index: 100;
+}
+
+.fab text {
+  font-size: 48rpx;
+  color: var(--text-white);
+}

@@ -1,0 +1,8 @@
+<!--pages/splash/splash.wxml-->
+<view class="container">
+  <view class="splash-content">
+    <view class="logo">🐔</view>
+    <view class="app-name">马拉松参赛助手</view>
+    <view class="loading-text">加载中...</view>
+  </view>
+</view>

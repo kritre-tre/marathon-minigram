@@ -1,0 +1,130 @@
+/* pages/activity-detail/activity-detail.wxss */
+.container {
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+.scroll-view {
+  height: 100vh;
+  padding-bottom: 40rpx;
+}
+
+/* 封面 */
+.cover {
+  width: 100%;
+  height: 400rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cover-title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: var(--text-white);
+  text-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.3);
+}
+
+/* 信息卡片 */
+.info-card {
+  margin-top: -40rpx;
+  padding: 30rpx;
+}
+
+.activity-name {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 24rpx;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.info-icon {
+  font-size: 32rpx;
+  margin-right: 16rpx;
+}
+
+.info-text {
+  font-size: 28rpx;
+  color: var(--text-secondary);
+}
+
+.badge-wrapper {
+  margin-top: 24rpx;
+}
+
+.badge {
+  display: inline-block;
+  padding: 12rpx 32rpx;
+  border-radius: 24rpx;
+  font-size: 26rpx;
+  color: var(--text-white);
+}
+
+.badge-recruiting {
+  background-color: var(--badge-recruiting);
+}
+
+.badge-ended {
+  background-color: var(--badge-ended);
+}
+
+/* 通用卡片 */
+.card {
+  background-color: var(--background-white);
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+  margin: 20rpx;
+  padding: 30rpx;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 20rpx;
+}
+
+.card-content {
+  font-size: 28rpx;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* 按钮 */
+.btn-wrapper {
+  padding: 40rpx 20rpx;
+}
+
+.btn-primary {
+  width: 100%;
+  height: 96rpx;
+  background-color: var(--primary);
+  color: var(--text-white);
+  border-radius: 16rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.btn-disabled {
+  width: 100%;
+  height: 96rpx;
+  background-color: #cccccc;
+  color: var(--text-white);
+  border-radius: 16rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}

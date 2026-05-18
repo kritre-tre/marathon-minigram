@@ -1,0 +1,175 @@
+/* pages/activity/activity.wxss */
+.container {
+  min-height: 100vh;
+  background-color: var(--background);
+  display: flex;
+  flex-direction: column;
+}
+
+.page-title {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: var(--text-primary);
+  padding: 30rpx;
+}
+
+/* 搜索卡片 */
+.search-card {
+  margin: 0 20rpx 20rpx;
+  padding: 24rpx;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.search-input {
+  flex: 1;
+  height: 80rpx;
+  background-color: var(--background);
+  border: 2rpx solid var(--border);
+  border-radius: 16rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.search-btn {
+  width: 80rpx;
+  height: 80rpx;
+  background-color: var(--primary);
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 16rpx;
+  font-size: 32rpx;
+}
+
+.filter-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-picker {
+  flex: 1;
+  margin: 0 8rpx;
+}
+
+.filter-picker:first-child {
+  margin-left: 0;
+}
+
+.filter-picker:last-child {
+  margin-right: 0;
+}
+
+.picker-content {
+  height: 72rpx;
+  background-color: var(--background);
+  border: 2rpx solid var(--border);
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}
+
+.arrow {
+  font-size: 20rpx;
+  margin-left: 8rpx;
+}
+
+/* 活动列表 */
+.activity-list {
+  flex: 1;
+  padding: 0 20rpx;
+  padding-bottom: 160rpx;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.activity-card {
+  background-color: var(--background-white);
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  margin-bottom: 20rpx;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.activity-cover {
+  width: 100%;
+  height: 240rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cover-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: var(--text-white);
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+}
+
+.activity-info {
+  padding: 24rpx;
+}
+
+.activity-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 16rpx;
+}
+
+.activity-city,
+.activity-date {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  margin-bottom: 8rpx;
+}
+
+.badge {
+  display: inline-block;
+  padding: 10rpx 24rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  color: var(--text-white);
+  margin-top: 16rpx;
+}
+
+.badge-recruiting {
+  background-color: var(--badge-recruiting);
+}
+
+.badge-ended {
+  background-color: var(--badge-ended);
+}
+
+/* 浮动按钮 */
+.fab {
+  position: fixed;
+  right: 40rpx;
+  bottom: 200rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background-color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(232, 165, 165, 0.5);
+  z-index: 100;
+}
+
+.fab text {
+  font-size: 48rpx;
+  color: var(--text-white);
+}

@@ -1,0 +1,113 @@
+/* pages/admin-profile/admin-profile.wxss */
+.container {
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+.scroll-view {
+  height: 100vh;
+  padding-bottom: 160rpx;
+}
+
+.page-title {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: var(--text-primary);
+  padding: 30rpx;
+}
+
+/* 用户卡片 */
+.user-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx;
+}
+
+.avatar-lg {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background-color: var(--primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64rpx;
+  color: var(--primary);
+  margin-bottom: 24rpx;
+}
+
+.user-emoji {
+  font-size: 60rpx;
+}
+
+.user-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: var(--primary-dark);
+  margin-bottom: 8rpx;
+}
+
+.user-type {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  margin-bottom: 16rpx;
+}
+
+/* 菜单卡片 */
+.menu-card {
+  margin: 0 30rpx 24rpx;
+  padding: 24rpx;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 8rpx;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 0;
+  font-size: 28rpx;
+  color: var(--text-primary);
+}
+
+.menu-item:active {
+  opacity: 0.6;
+}
+
+.arrow {
+  color: var(--text-hint);
+  font-size: 36rpx;
+}
+
+.divider {
+  height: 2rpx;
+  background-color: var(--divider);
+}
+
+/* 退出登录 */
+.logout-wrapper {
+  padding: 60rpx 30rpx;
+}
+
+.btn-logout {
+  width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
+  background-color: var(--background-white);
+  color: var(--error);
+  border: 2rpx solid var(--error);
+  border-radius: 16rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  text-align: center;
+}
+
+.btn-logout:active {
+  background-color: #FFEBEE;
+}

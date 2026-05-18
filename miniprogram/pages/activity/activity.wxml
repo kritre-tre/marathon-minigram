@@ -1,0 +1,80 @@
+<!--pages/activity/activity.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-title">赛事活动</view>
+
+  <!-- 搜索和筛选卡片 -->
+  <view class="card search-card">
+    <!-- 搜索框 -->
+    <view class="search-wrapper">
+      <input 
+        class="search-input" 
+        placeholder="搜索赛事名称、城市..." 
+        value="{{searchText}}"
+        bindinput="onSearchInput"
+      />
+      <view class="search-btn" bindtap="onSearch">
+        <text>🔍</text>
+      </view>
+    </view>
+
+    <!-- 筛选项 -->
+    <view class="filter-wrapper">
+      <picker class="filter-picker" 
+              mode="selector" 
+              range="{{typeOptions}}" 
+              bindchange="onTypeChange">
+        <view class="picker-content">
+          {{typeOptions[typeIndex] || '赛事类型'}}
+          <text class="arrow">▼</text>
+        </view>
+      </picker>
+
+      <picker class="filter-picker" 
+              mode="selector" 
+              range="{{statusOptions}}" 
+              bindchange="onStatusChange">
+        <view class="picker-content">
+          {{statusOptions[statusIndex] || '状态'}}
+          <text class="arrow">▼</text>
+        </view>
+      </picker>
+
+      <picker class="filter-picker" 
+              mode="selector" 
+              range="{{cityOptions}}" 
+              bindchange="onCityChange">
+        <view class="picker-content">
+          {{cityOptions[cityIndex] || '城市'}}
+          <text class="arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 活动列表 -->
+  <scroll-view scroll-y class="activity-list">
+    <view class="activity-card" 
+          wx:for="{{filteredActivities}}" 
+          wx:key="id"
+          bindtap="onActivityTap"
+          data-id="{{item.id}}">
+      <view class="activity-cover" style="background: {{item.gradient}};">
+        <view class="cover-title">{{item.name}}</view>
+      </view>
+      <view class="activity-info">
+        <view class="activity-name">{{item.name}}</view>
+        <view class="activity-city">📍 {{item.city}}</view>
+        <view class="activity-date">📅 {{item.date}}</view>
+        <view class="badge {{item.status === '招募中' ? 'badge-recruiting' : 'badge-ended'}}">
+          {{item.status}}
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 添加按钮 -->
+  <view class="fab" bindtap="onAddActivity">
+    <text>+</text>
+  </view>
+</view>

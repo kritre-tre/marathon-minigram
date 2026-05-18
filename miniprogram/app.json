@@ -1,0 +1,52 @@
+{
+  "pages": [
+    "pages/splash/splash",
+    "pages/login/login",
+    "pages/register/register",
+    "pages/index/index",
+    "pages/activity/activity",
+    "pages/post/post",
+    "pages/profile/profile",
+    "pages/activity-detail/activity-detail",
+    "pages/add-activity/add-activity",
+    "pages/add-post/add-post",
+    "pages/edit-profile/edit-profile",
+    "pages/admin-index/admin-index",
+    "pages/admin-audit/admin-audit",
+    "pages/admin-audit-detail/admin-audit-detail",
+    "pages/admin-profile/admin-profile"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTitleText": "马拉松参赛助手",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#FFF5F5"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#E8A5A5",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/activity/activity",
+        "text": "赛事活动"
+      },
+      {
+        "pagePath": "pages/post/post",
+        "text": "主题帖"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "个人中心"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

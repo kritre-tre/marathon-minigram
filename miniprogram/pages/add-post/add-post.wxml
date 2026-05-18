@@ -1,0 +1,37 @@
+<!--pages/add-post/add-post.wxml-->
+<view class="container">
+  <scroll-view scroll-y class="scroll-view">
+    <!-- 表单卡片 -->
+    <view class="card form-card">
+      <!-- 帖子标题 -->
+      <view class="form-group">
+        <view class="form-label">帖子标题 *</view>
+        <input 
+          class="form-input" 
+          placeholder="请输入标题（最多50字）" 
+          maxlength="50"
+          value="{{form.title}}"
+          bindinput="onInput"
+          data-field="title"
+        />
+      </view>
+
+      <!-- 帖子内容 -->
+      <view class="form-group">
+        <view class="form-label">帖子内容 *</view>
+        <textarea 
+          class="form-textarea" 
+          placeholder="分享你的马拉松故事、训练心得、装备推荐..." 
+          maxlength="2000"
+          value="{{form.content}}"
+          bindinput="onInput"
+          data-field="content"
+        />
+        <view class="char-count">{{form.content.length || 0}}/2000</view>
+      </view>
+
+      <!-- 提交按钮 -->
+      <button class="btn-primary" bindtap="onSubmit">发布主题帖</button>
+    </view>
+  </scroll-view>
+</view>
