@@ -1,0 +1,52 @@
+<!--pages/register/register.wxml-->
+<view class="container">
+  <scroll-view scroll-y class="scroll-view">
+    <view class="register-content">
+      <view class="logo">跑</view>
+      <view class="app-name">马拉松参赛助手</view>
+      <view class="subtitle">创建新账号</view>
+
+      <view class="form-group">
+        <view class="input-label">邮箱</view>
+        <input
+          class="input-field"
+          placeholder="请输入邮箱"
+          value="{{email}}"
+          bindinput="onInput"
+          data-field="email"
+        />
+      </view>
+
+      <view class="form-group">
+        <view class="input-label">密码</view>
+        <input
+          class="input-field"
+          placeholder="请输入密码"
+          password="{{true}}"
+          value="{{password}}"
+          bindinput="onInput"
+          data-field="password"
+        />
+      </view>
+
+      <view class="form-group">
+        <view class="input-label">确认密码</view>
+        <input
+          class="input-field"
+          placeholder="请再次输入密码"
+          password="{{true}}"
+          value="{{confirmPassword}}"
+          bindinput="onInput"
+          data-field="confirmPassword"
+        />
+      </view>
+
+      <button class="btn-primary" bindtap="onRegister">注册</button>
+
+      <view class="login-hint">
+        <text>已有账号？</text>
+        <text class="login-link" bindtap="onGoLogin">立即登录</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>

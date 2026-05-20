@@ -1,0 +1,137 @@
+/* pages/index/index.wxss */
+.container {
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+.scroll-view {
+  height: 100vh;
+  padding-bottom: 120rpx;
+}
+
+/* 轮播图样式 */
+.banner-swiper {
+  width: 100%;
+  height: 360rpx;
+}
+
+.banner-item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-content {
+  text-align: center;
+  color: var(--text-white);
+}
+
+.banner-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-bottom: 16rpx;
+}
+
+.banner-subtitle {
+  font-size: 28rpx;
+  opacity: 0.9;
+}
+
+/* 区块标题 */
+.section-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: var(--text-primary);
+  padding: 30rpx;
+}
+
+/* 活动网格 */
+.activity-grid {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 20rpx;
+}
+
+.activity-card {
+  width: calc(50% - 20rpx);
+  margin: 10rpx;
+  background-color: var(--background-white);
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.activity-cover {
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cover-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: var(--text-white);
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+}
+
+.activity-info {
+  padding: 20rpx;
+}
+
+.activity-name {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 12rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.activity-city,
+.activity-date {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+  margin-bottom: 8rpx;
+}
+
+.badge {
+  display: inline-block;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  color: var(--text-white);
+  margin-top: 12rpx;
+}
+
+.badge-recruiting {
+  background-color: var(--badge-recruiting);
+}
+
+.badge-ended {
+  background-color: var(--badge-ended);
+}
+
+/* 查看更多按钮 */
+.view-more-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 30rpx;
+}
+
+.view-more-btn {
+  width: 300rpx;
+  height: 80rpx;
+  background-color: var(--background-white);
+  color: var(--primary);
+  border: 2rpx solid var(--primary);
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

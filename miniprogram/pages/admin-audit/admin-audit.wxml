@@ -1,0 +1,71 @@
+<!--pages/admin-audit/admin-audit.wxml-->
+<view class="container">
+  <view class="tab-bar">
+    <view 
+      class="tab-item {{tab === item.key ? 'active' : ''}}" 
+      wx:for="{{tabs}}" wx:key="key"
+      bindtap="onSwitchTab"
+      data-tab="{{item.key}}"
+    >
+      <text>{{item.label}}</text>
+    </view>
+  </view>
+
+  <scroll-view scroll-y class="scroll-view">
+    <!-- 主题帖审核列表 -->
+    <block wx:if="{{tab === 'post'}}">
+      <view class="list-item" wx:for="{{list}}" wx:key="id" bindtap="onItemTap" data-type="post" data-id="{{item.id}}">
+        <view class="list-item-main">
+          <view class="list-item-title">{{item.title}}</view>
+          <view class="list-item-content">{{item.content}}</view>
+          <view class="list-item-meta">{{item.author}} · {{item.time}}</view>
+        </view>
+        <view class="list-item-status {{item.statusClass}}">{{item.statusText}}</view>
+      </view>
+      <view class="empty-tip" wx:if="{{list.length === 0}}">{{emptyText.post}}</view>
+    </block>
+
+    <!-- 评论审核列表 -->
+    <block wx:if="{{tab === 'comment'}}">
+      <view class="list-item" wx:for="{{list}}" wx:key="id" bindtap="onItemTap" data-type="comment" data-id="{{item.id}}">
+        <view class="list-item-main">
+          <view class="list-item-content">{{item.content}}</view>
+          <view class="list-item-meta">{{item.author}} · 评论于「{{item.postTitle}}」· {{item.time}}</view>
+        </view>
+        <view class="list-item-status {{item.statusClass}}">{{item.statusText}}</view>
+      </view>
+      <view class="empty-tip" wx:if="{{list.length === 0}}">{{emptyText.comment}}</view>
+    </block>
+
+    <!-- 赛事审核列表 -->
+    <block wx:if="{{tab === 'activity'}}">
+      <view class="list-item" wx:for="{{list}}" wx:key="id" bindtap="onItemTap" data-type="activity" data-id="{{item.id}}">
+        <view class="list-item-main">
+          <view class="list-item-title">{{item.name}}</view>
+          <view class="list-item-content">{{item.intro}}</view>
+          <view class="list-item-meta">{{item.city}} · {{item.date}} · 提交者: {{item.submitter}}</view>
+        </view>
+        <view class="list-item-status {{item.statusClass}}">{{item.statusText}}</view>
+      </view>
+      <view class="empty-tip" wx:if="{{list.length === 0}}">{{emptyText.activity}}</view>
+    </block>
+
+    <!-- 用户管理列表（不可审核，仅展示） -->
+    <block wx:if="{{tab === 'user'}}">
+      <view class="list-item" wx:for="{{list}}" wx:key="id">
+        <view class="list-item-main">
+          <view class="user-item-header">
+            <view class="user-avatar-sm">{{item.avatar}}</view>
+            <view class="user-name-area">
+              <view class="list-item-title">{{item.name}}</view>
+              <view class="list-item-meta">{{item.username}} · {{item.gender}}</view>
+            </view>
+          </view>
+          <view class="list-item-meta">{{item.phone}} · {{item.email}} · {{item.userType}}</view>
+        </view>
+      </view>
+      <view class="empty-tip" wx:if="{{list.length === 0}}">{{emptyText.user}}</view>
+    </block>
+  </scroll-view>
+  <admin-tabbar current="audit" />
+</view>

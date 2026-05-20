@@ -1,0 +1,84 @@
+<!--pages/edit-profile/edit-profile.wxml-->
+<view class="container">
+  <scroll-view scroll-y class="scroll-view">
+    <!-- 头像区域 -->
+    <view class="avatar-section">
+      <view class="avatar-lg">
+        <text>{{userInfo.name || '用'}}</text>
+      </view>
+      <view class="change-avatar">修改头像</view>
+    </view>
+
+    <!-- 表单卡片 -->
+    <view class="card form-card">
+      <!-- 用户名 -->
+      <view class="form-group">
+        <view class="form-label">用户名</view>
+        <input 
+          class="form-input" 
+          placeholder="请输入用户名" 
+          value="{{userInfo.username}}"
+          bindinput="onInput"
+          data-field="username"
+        />
+      </view>
+
+      <!-- 姓名 -->
+      <view class="form-group">
+        <view class="form-label">姓名</view>
+        <input 
+          class="form-input" 
+          placeholder="请输入姓名" 
+          value="{{userInfo.name}}"
+          bindinput="onInput"
+          data-field="name"
+        />
+      </view>
+
+      <!-- 性别 -->
+      <view class="form-group">
+        <view class="form-label">性别</view>
+        <picker mode="selector" range="{{genderOptions}}" bindchange="onGenderChange">
+          <view class="form-input picker-input">
+            {{userInfo.gender || '请选择性别'}}
+          </view>
+        </picker>
+      </view>
+
+      <!-- 出生日期 -->
+      <view class="form-group">
+        <view class="form-label">出生日期</view>
+        <picker mode="date" value="{{userInfo.birthday}}" bindchange="onBirthdayChange">
+          <view class="form-input picker-input">
+            {{userInfo.birthday || '请选择出生日期'}}
+          </view>
+        </picker>
+      </view>
+
+      <!-- 学历 -->
+      <view class="form-group">
+        <view class="form-label">学历</view>
+        <picker mode="selector" range="{{educationOptions}}" bindchange="onEducationChange">
+          <view class="form-input picker-input">
+            {{userInfo.education || '请选择学历'}}
+          </view>
+        </picker>
+      </view>
+
+      <!-- 学校/工作单位 -->
+      <view class="form-group">
+        <view class="form-label">学校/工作单位</view>
+        <input 
+          class="form-input" 
+          placeholder="请输入学校或工作单位" 
+          value="{{userInfo.school}}"
+          bindinput="onInput"
+          data-field="school"
+        />
+      </view>
+
+      <!-- 保存按钮 -->
+      <button class="btn-primary" bindtap="onSave">保存修改</button>
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "管理员中心",
+  "usingComponents": {
+    "admin-tabbar": "../../components/admin-tabbar/admin-tabbar"
+  }
+}

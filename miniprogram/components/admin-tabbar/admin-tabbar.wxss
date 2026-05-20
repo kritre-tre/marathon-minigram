@@ -1,0 +1,38 @@
+/* 管理员底部导航 */
+.admin-tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100rpx;
+  display: flex;
+  background-color: #FFFFFF;
+  border-top: 2rpx solid #F0F0F0;
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: content-box;
+}
+
+.tabbar-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tabbar-item.active .tabbar-icon,
+.tabbar-item.active .tabbar-label {
+  color: var(--primary);
+}
+
+.tabbar-icon {
+  font-size: 40rpx;
+  margin-bottom: 4rpx;
+  color: #999;
+}
+
+.tabbar-label {
+  font-size: 20rpx;
+  color: #999;
+}

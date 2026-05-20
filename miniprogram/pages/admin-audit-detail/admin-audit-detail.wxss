@@ -1,0 +1,129 @@
+/* pages/admin-audit-detail/admin-audit-detail.wxss */
+.container {
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+.scroll-view {
+  height: 100vh;
+  padding-bottom: 160rpx;
+}
+
+.loading-tip {
+  text-align: center;
+  padding: 80rpx 30rpx;
+  font-size: 28rpx;
+  color: var(--text-hint);
+}
+
+/* 状态条 */
+.status-bar {
+  margin: 30rpx;
+  padding: 20rpx;
+  text-align: center;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.status-bar.status-pending {
+  background-color: #FFF3E0;
+  color: #F57C00;
+}
+
+.status-bar.status-approved {
+  background-color: #E8F5E9;
+  color: #388E3C;
+}
+
+.status-bar.status-rejected {
+  background-color: #FFEBEE;
+  color: #D32F2F;
+}
+
+/* 卡片 */
+.card {
+  background-color: var(--background-white);
+  margin: 0 30rpx 30rpx;
+  padding: 28rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+}
+
+.detail-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 12rpx;
+  line-height: 1.4;
+}
+
+.detail-meta {
+  font-size: 24rpx;
+  color: var(--text-hint);
+  margin-bottom: 8rpx;
+  line-height: 1.6;
+}
+
+.detail-section-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 12rpx;
+}
+
+.detail-content {
+  font-size: 28rpx;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 8rpx;
+}
+
+.divider {
+  height: 2rpx;
+  background-color: var(--divider);
+  margin: 24rpx 0;
+}
+
+/* 操作按钮 */
+.action-bar {
+  display: flex;
+  gap: 24rpx;
+  padding: 0 30rpx;
+}
+
+.btn-approve {
+  flex: 1;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background-color: var(--success);
+  color: var(--text-white);
+  border-radius: 16rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.btn-approve:active {
+  opacity: 0.8;
+}
+
+.btn-reject {
+  flex: 1;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background-color: var(--error);
+  color: var(--text-white);
+  border-radius: 16rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.btn-reject:active {
+  opacity: 0.8;
+}

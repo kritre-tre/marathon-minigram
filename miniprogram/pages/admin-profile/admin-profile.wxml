@@ -1,0 +1,50 @@
+<!--pages/admin-profile/admin-profile.wxml-->
+<view class="container">
+  <scroll-view scroll-y class="scroll-view">
+    <!-- 页面标题 -->
+    <view class="page-title">管理员中心</view>
+
+    <!-- 用户卡片 -->
+    <view class="user-card" wx:if="{{userInfo}}">
+      <view class="avatar-lg">
+        <text class="user-emoji">{{userInfo.name.charAt(0)}}</text>
+      </view>
+      <view class="user-name">{{userInfo.name}}</view>
+      <view class="user-type">{{userInfo.userType}}</view>
+    </view>
+
+    <!-- 快捷入口 -->
+    <view class="card menu-card">
+      <view class="card-title">快捷入口</view>
+      <view class="menu-item" bindtap="onGoToDashboard">
+        <text>管理首页</text>
+        <text class="arrow">›</text>
+      </view>
+      <view class="divider"></view>
+      <view class="menu-item" bindtap="onGoToAudit">
+        <text>审核管理</text>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 账号管理 -->
+    <view class="card menu-card">
+      <view class="card-title">账号管理</view>
+      <view class="menu-item" bindtap="onMenuTap" data-type="changePassword">
+        <text>修改密码</text>
+        <text class="arrow">›</text>
+      </view>
+      <view class="divider"></view>
+      <view class="menu-item" bindtap="onMenuTap" data-type="about">
+        <text>关于</text>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 退出登录 -->
+    <view class="logout-wrapper">
+      <button class="btn-logout" bindtap="onLogout">退出登录</button>
+    </view>
+  </scroll-view>
+  <admin-tabbar current="profile" />
+</view>

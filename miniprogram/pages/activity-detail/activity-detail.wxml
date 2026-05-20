@@ -1,0 +1,65 @@
+<!--pages/activity-detail/activity-detail.wxml-->
+<view class="container">
+  <scroll-view scroll-y class="scroll-view">
+    <!-- 封面图 -->
+    <view class="cover" style="background: {{activity.gradient}};">
+      <view class="cover-title">{{activity.name}}</view>
+    </view>
+
+    <!-- 基本信息卡片 -->
+    <view class="card info-card">
+      <view class="activity-name">{{activity.name}}</view>
+      
+      <view class="info-row">
+        <text class="info-icon">📍</text>
+        <text class="info-text">{{activity.city}} {{activity.address}}</text>
+      </view>
+      
+      <view class="info-row">
+        <text class="info-icon">📅</text>
+        <text class="info-text">活动日期：{{activity.date}}</text>
+      </view>
+      
+      <view class="info-row">
+        <text class="info-icon">⏰</text>
+        <text class="info-text">报名截止：{{activity.deadline}}</text>
+      </view>
+      
+      <view class="info-row">
+        <text class="info-icon">🏃</text>
+        <text class="info-text">赛事类型：{{activity.type}}</text>
+      </view>
+      
+      <view class="info-row">
+        <text class="info-icon">👥</text>
+        <text class="info-text">招募人数：{{activity.count}}人</text>
+      </view>
+
+      <view class="badge-wrapper">
+        <view class="badge {{activity.statusClass}}">
+          {{activity.status}}
+        </view>
+      </view>
+    </view>
+
+    <!-- 赛事简介卡片 -->
+    <view class="card">
+      <view class="card-title">赛事简介</view>
+      <view class="card-content">{{activity.intro}}</view>
+    </view>
+
+    <!-- 详细说明卡片 -->
+    <view class="card">
+      <view class="card-title">详细说明</view>
+      <view class="card-content">{{activity.detail}}</view>
+    </view>
+
+    <!-- 报名按钮 -->
+    <view class="btn-wrapper" wx:if="{{activity.canSignUp}}">
+      <button class="btn-primary" bindtap="onSignUp">立即报名</button>
+    </view>
+    <view class="btn-wrapper" wx:else>
+      <button class="btn-disabled" disabled>报名已结束</button>
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,46 @@
+<!--pages/login/login.wxml-->
+<view class="container">
+  <scroll-view scroll-y class="scroll-view">
+    <view class="login-content">
+      <view class="logo">跑</view>
+      <view class="app-name">马拉松参赛助手</view>
+
+      <view class="role-switch">
+        <view class="role-tab {{role === 'user' ? 'active' : ''}}" bindtap="onSwitchRole" data-role="user">
+          <text>用户登录</text>
+        </view>
+        <view class="role-tab {{role === 'admin' ? 'active' : ''}}" bindtap="onSwitchRole" data-role="admin">
+          <text>管理员登录</text>
+        </view>
+      </view>
+
+      <view class="form-group">
+        <view class="input-label">{{role === 'admin' ? '管理员账号' : '邮箱'}}</view>
+        <input
+          class="input-field"
+          placeholder="{{role === 'admin' ? '请输入管理员账号' : '请输入邮箱'}}"
+          value="{{email}}"
+          bindinput="onEmailInput"
+        />
+      </view>
+
+      <view class="form-group">
+        <view class="input-label">密码</view>
+        <input
+          class="input-field"
+          placeholder="请输入密码"
+          password="{{true}}"
+          value="{{password}}"
+          bindinput="onPasswordInput"
+        />
+      </view>
+
+      <button class="btn-primary" bindtap="onLogin">{{role === 'admin' ? '管理员登录' : '登录'}}</button>
+
+      <view class="register-hint" wx:if="{{role === 'user'}}">
+        <text>还没有账号？</text>
+        <text class="register-link" bindtap="onGoRegister">立即注册</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,13 @@
+<!-- 管理员底部导航组件 -->
+<view class="admin-tabbar">
+  <view 
+    class="tabbar-item {{current === item.key ? 'active' : ''}}" 
+    wx:for="{{tabs}}" wx:key="key"
+    wx:for-item="tabItem"
+    bindtap="onTap" 
+    data-tab="{{tabItem.key}}"
+  >
+    <text class="tabbar-icon">{{tabItem.icon}}</text>
+    <text class="tabbar-label">{{tabItem.label}}</text>
+  </view>
+</view>

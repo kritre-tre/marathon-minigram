@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "审核管理",
+  "usingComponents": {
+    "admin-tabbar": "../../components/admin-tabbar/admin-tabbar"
+  }
+}

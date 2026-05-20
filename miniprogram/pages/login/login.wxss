@@ -1,0 +1,126 @@
+/* pages/login/login.wxss */
+.container {
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+.scroll-view {
+  height: 100vh;
+}
+
+.login-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60rpx 40rpx;
+}
+
+.logo {
+  font-size: 128rpx;
+  margin-top: 60rpx;
+}
+
+.app-name {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: var(--primary-dark);
+  margin-top: 24rpx;
+  margin-bottom: 60rpx;
+}
+
+.welcome-text {
+  font-size: 36rpx;
+  color: var(--text-secondary);
+  margin-bottom: 60rpx;
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 30rpx;
+}
+
+.input-label {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  margin-bottom: 16rpx;
+}
+
+.input-field {
+  width: 100%;
+  height: 96rpx;
+  background-color: var(--background-white);
+  border: 2rpx solid var(--border);
+  border-radius: 16rpx;
+  padding: 0 24rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+
+.forgot-password {
+  align-self: flex-end;
+  color: var(--primary);
+  font-size: 26rpx;
+  padding: 12rpx;
+  margin-bottom: 40rpx;
+}
+
+.btn-primary {
+  width: 100%;
+  height: 96rpx;
+  background-color: var(--primary);
+  color: var(--text-white);
+  border-radius: 16rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  margin-bottom: 40rpx;
+}
+
+.register-hint {
+  display: flex;
+  align-items: center;
+  margin-top: 20rpx;
+}
+
+.register-hint text {
+  font-size: 28rpx;
+  color: var(--text-secondary);
+}
+
+.register-link {
+  color: var(--primary) !important;
+  font-weight: bold;
+  margin-left: 12rpx;
+}
+
+/* 角色切换 */
+.role-switch {
+  display: flex;
+  background-color: var(--primary-light);
+  border-radius: 16rpx;
+  padding: 6rpx;
+  margin-bottom: 48rpx;
+  width: 100%;
+}
+
+.role-tab {
+  flex: 1;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  color: var(--text-secondary);
+  transition: all 0.3s;
+}
+
+.role-tab.active {
+  background-color: var(--background-white);
+  color: var(--primary);
+  font-weight: bold;
+  box-shadow: 0 4rpx 12rpx rgba(232, 165, 165, 0.3);
+}
