@@ -1,0 +1,8 @@
+.container { min-height: 100vh; background: #fff5f5; padding: 20rpx; }
+.card { background: #fff; border-radius: 16rpx; padding: 20rpx; margin-bottom: 16rpx; }
+.picker { color: #333; font-size: 28rpx; }
+.item { background: #fff; border-radius: 16rpx; padding: 20rpx; margin-bottom: 16rpx; }
+.title { font-size: 30rpx; font-weight: 700; margin-bottom: 8rpx; }
+.meta { color: #666; font-size: 24rpx; margin-bottom: 6rpx; }
+.actions { margin-top: 10rpx; display: flex; gap: 10rpx; }
+.empty { text-align: center; color: #999; margin-top: 60rpx; }

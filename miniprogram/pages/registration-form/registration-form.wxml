@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="card">
+    <view class="title">报名赛事</view>
+    <view class="activity-name">{{activityName}}</view>
+
+    <view class="form-item">
+      <view class="label">真实姓名</view>
+      <input class="input" value="{{form.realName}}" data-field="realName" bindinput="onInput" placeholder="请输入真实姓名" />
+    </view>
+
+    <view class="form-item">
+      <view class="label">身份证号</view>
+      <input class="input" value="{{form.idNumber}}" data-field="idNumber" bindinput="onInput" placeholder="请输入身份证号" />
+    </view>
+
+    <view class="form-item">
+      <view class="label">联系电话</view>
+      <input class="input" value="{{form.phoneNumber}}" data-field="phoneNumber" bindinput="onInput" placeholder="请输入联系电话" />
+    </view>
+
+    <view class="form-item">
+      <view class="label">紧急联系人及电话</view>
+      <input class="input" value="{{form.emergencyContact}}" data-field="emergencyContact" bindinput="onInput" placeholder="如：张三 13800000000" />
+    </view>
+
+    <button class="btn" loading="{{submitting}}" disabled="{{submitting}}" bindtap="onSubmit">提交报名</button>
+  </view>
+</view>

@@ -1,0 +1,9 @@
+<view class="container">
+  <view class="item" wx:for="{{list}}" wx:key="id">
+    <view class="title">{{item.activityTitle || ('赛事ID ' + item.activityId)}}</view>
+    <view class="meta">姓名：{{item.realName}} · 电话：{{item.phoneNumber}}</view>
+    <view class="meta">审核：{{item.auditState}} · 状态：{{item.registrationStatus}}</view>
+    <button class="mini danger" size="mini" bindtap="onCancel" data-id="{{item.id}}">取消报名</button>
+  </view>
+  <view class="empty" wx:if="{{!list.length}}">暂无报名记录</view>
+</view>

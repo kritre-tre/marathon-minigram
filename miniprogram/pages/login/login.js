@@ -3,7 +3,7 @@ const api = require('../../utils/api')
 
 Page({
   data: {
-    email: '',
+    account: '',
     password: '',
     role: 'user'
   },
@@ -13,7 +13,7 @@ Page({
   },
 
   onEmailInput(e) {
-    this.setData({ email: e.detail.value })
+    this.setData({ account: e.detail.value })
   },
 
   onPasswordInput(e) {
@@ -21,10 +21,10 @@ Page({
   },
 
   async onLogin() {
-    const { email, password, role } = this.data
+    const { account, password, role } = this.data
 
-    if (!email) {
-      wx.showToast({ title: role === 'admin' ? '请输入管理员账号' : '请输入邮箱', icon: 'none' })
+    if (!account) {
+      wx.showToast({ title: role === 'admin' ? '请输入管理员账号' : '请输入用户ID', icon: 'none' })
       return
     }
     if (!password) {
@@ -38,8 +38,7 @@ Page({
         url: '/api/auth/login',
         method: 'POST',
         data: {
-          account: email,
-          email,
+          account,
           password,
           role
         }
@@ -60,7 +59,7 @@ Page({
   },
 
   onForgotPassword() {
-    wx.showToast({ title: '请联系管理员重置密码', icon: 'none' })
+    wx.navigateTo({ url: '/pages/forgot-password/forgot-password' })
   },
 
   onGoRegister() {

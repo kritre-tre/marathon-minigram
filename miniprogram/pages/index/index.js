@@ -30,8 +30,10 @@ Page({
         banners: activities.map(item => ({
           id: item.id,
           title: item.name,
-          subtitle: item.address || item.type || '',
-          gradient: item.gradient
+          subtitle: item.address || item.typeText || '',
+          gradient: item.gradient,
+          hasCover: item.hasCover,
+          coverSrc: item.coverSrc
         }))
       })
     } catch (error) {

@@ -1,15 +1,16 @@
-<!--pages/index/index.wxml-->
 <view class="container">
   <scroll-view scroll-y class="scroll-view">
-    <!-- 轮播图区域 -->
-    <swiper class="banner-swiper" 
-            indicator-dots="{{true}}" 
-            autoplay="{{true}}" 
-            circular="{{true}}"
-            indicator-color="rgba(255,255,255,0.5)"
-            indicator-active-color="#FFFFFF">
+    <swiper
+      class="banner-swiper"
+      indicator-dots="{{true}}"
+      autoplay="{{true}}"
+      circular="{{true}}"
+      indicator-color="rgba(255,255,255,0.5)"
+      indicator-active-color="#FFFFFF"
+    >
       <swiper-item wx:for="{{banners}}" wx:key="id">
-        <view class="banner-item" style="background: {{item.gradient}};">
+        <image wx:if="{{item.hasCover}}" class="banner-img" src="{{item.coverSrc}}" mode="aspectFill" />
+        <view wx:else class="banner-item" style="background: {{item.gradient}};">
           <view class="banner-content">
             <view class="banner-title">{{item.title}}</view>
             <view class="banner-subtitle">{{item.subtitle}}</view>
@@ -18,31 +19,30 @@
       </swiper-item>
     </swiper>
 
-    <!-- 热门赛事标题 -->
     <view class="section-title">热门赛事</view>
 
-    <!-- 活动网格 -->
     <view class="activity-grid">
-      <view class="activity-card" 
-            wx:for="{{activities}}" 
-            wx:key="id"
-            bindtap="onActivityTap"
-            data-id="{{item.id}}">
-        <view class="activity-cover" style="background: {{item.gradient}};">
+      <view
+        class="activity-card"
+        wx:for="{{activities}}"
+        wx:key="id"
+        bindtap="onActivityTap"
+        data-id="{{item.id}}"
+      >
+        <image wx:if="{{item.hasCover}}" class="activity-cover-img" src="{{item.coverSrc}}" mode="aspectFill" />
+        <view wx:else class="activity-cover" style="background: {{item.gradient}};">
           <view class="cover-title">{{item.name}}</view>
         </view>
         <view class="activity-info">
           <view class="activity-name">{{item.name}}</view>
           <view class="activity-city">📍 {{item.city}}</view>
           <view class="activity-date">📅 {{item.date}}</view>
-          <view class="badge {{item.statusClass}}">
-            {{item.status}}
-          </view>
+          <view class="activity-type">类型：{{item.typeText}}</view>
+          <view class="badge {{item.statusClass}}">{{item.status}}</view>
         </view>
       </view>
     </view>
 
-    <!-- 查看更多按钮 -->
     <view class="view-more-wrapper">
       <button class="btn-secondary view-more-btn" bindtap="onViewMore">查看更多</button>
     </view>

@@ -60,18 +60,27 @@ Page({
   },
 
   filterActivities() {
-    const { activities, searchText, typeIndex, statusIndex, cityIndex, typeOptions, statusOptions, cityOptions } = this.data
+    const {
+      activities,
+      searchText,
+      typeIndex,
+      statusIndex,
+      cityIndex,
+      typeOptions,
+      statusOptions,
+      cityOptions
+    } = this.data
     let filtered = activities
 
     if (searchText) {
       filtered = filtered.filter(item =>
-        item.name.includes(searchText) ||
-        item.city.includes(searchText) ||
-        item.address.includes(searchText)
+        String(item.name || '').includes(searchText) ||
+        String(item.city || '').includes(searchText) ||
+        String(item.address || '').includes(searchText)
       )
     }
     if (typeIndex > 0) {
-      filtered = filtered.filter(item => item.type === typeOptions[typeIndex])
+      filtered = filtered.filter(item => item.typeText === typeOptions[typeIndex])
     }
     if (statusIndex > 0) {
       filtered = filtered.filter(item => item.status === statusOptions[statusIndex])

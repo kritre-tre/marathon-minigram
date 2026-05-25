@@ -1,0 +1,105 @@
+.container {
+  min-height: 100vh;
+  background: #fff5f5;
+  padding: 20rpx;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.title {
+  font-size: 34rpx;
+  font-weight: 700;
+  margin-bottom: 10rpx;
+}
+
+.meta {
+  color: #999;
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.activity-link {
+  background: #f5f0ff;
+  border-left: 6rpx solid #7c3aed;
+  border-radius: 12rpx;
+  padding: 18rpx;
+  margin-bottom: 20rpx;
+}
+
+.activity-name {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+}
+
+.activity-meta {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.5;
+}
+
+.activity-status {
+  display: inline-block;
+  margin-top: 10rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+  background: #7c3aed;
+  color: #fff;
+  font-size: 22rpx;
+}
+
+.content {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.7;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-bottom: 12rpx;
+}
+
+.comment-item {
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.comment-meta {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+
+.comment-content {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.textarea {
+  width: 100%;
+  height: 180rpx;
+  background: #fafafa;
+  border-radius: 12rpx;
+  padding: 16rpx;
+  box-sizing: border-box;
+  margin-bottom: 16rpx;
+}
+
+.btn {
+  background: #e8a5a5;
+  color: #fff;
+  border: none;
+}
+
+.empty {
+  color: #999;
+  text-align: center;
+  padding: 20rpx 0;
+}

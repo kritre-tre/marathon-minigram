@@ -21,6 +21,28 @@ function normalizeRegistration(row) {
   }
 }
 
+async function getOwnerKeys(userId) {
+  const rows = await query(
+    `SELECT u.UserID, o.username, o.email
+     FROM user_database u
+     LEFT JOIN OrdinaryUser o ON o.userID = u.UserID
+     WHERE u.UserID = ?
+     LIMIT 1`,
+    [userId]
+  )
+  const keys = new Set([String(userId)])
+  if (rows.length) {
+    if (rows[0].UserID) keys.add(String(rows[0].UserID))
+    if (rows[0].username) keys.add(String(rows[0].username))
+    if (rows[0].email) keys.add(String(rows[0].email))
+  }
+  return Array.from(keys).filter(Boolean)
+}
+
+function isOwner(ownerId, ownerKeys) {
+  return ownerKeys.includes(String(ownerId))
+}
+
 router.get('/my', authenticate, asyncHandler(async (req, res) => {
   const rows = await query(
     `SELECT r.*, a.Title
@@ -34,12 +56,14 @@ router.get('/my', authenticate, asyncHandler(async (req, res) => {
 }))
 
 router.get('/activity/:activityId', authenticate, asyncHandler(async (req, res) => {
+  const ownerKeys = await getOwnerKeys(req.user.userId)
+  const auditState = String(req.query.auditState || 'Pending')
   const activities = await query(
     'SELECT UserID FROM MarathonActivity WHERE ActivityID = ? LIMIT 1',
     [req.params.activityId]
   )
   if (!activities.length) return fail(res, 404, '赛事不存在')
-  if (activities[0].UserID !== req.user.userId && req.user.userType !== 'admin') {
+  if (!isOwner(activities[0].UserID, ownerKeys) && req.user.userType !== 'admin') {
     return fail(res, 403, '只能查看自己发布赛事的报名信息')
   }
 
@@ -47,9 +71,9 @@ router.get('/activity/:activityId', authenticate, asyncHandler(async (req, res) 
     `SELECT r.*, a.Title
      FROM Registration_Inf r
      LEFT JOIN MarathonActivity a ON a.ActivityID = r.ActivityID
-     WHERE r.ActivityID = ?
+     WHERE r.ActivityID = ? AND r.AuditState = ?
      ORDER BY r.RegistrationID DESC`,
-    [req.params.activityId]
+    [req.params.activityId, auditState]
   )
   return ok(res, rows.map(normalizeRegistration))
 }))
@@ -101,7 +125,7 @@ router.delete('/:id', authenticate, asyncHandler(async (req, res) => {
     [req.params.id]
   )
   if (!rows.length) return fail(res, 404, '报名信息不存在')
-  if (rows[0].UserID !== req.user.userId && req.user.userType !== 'admin') {
+  if (String(rows[0].UserID) !== String(req.user.userId) && req.user.userType !== 'admin') {
     return fail(res, 403, '只能取消自己的报名')
   }
 
@@ -110,6 +134,7 @@ router.delete('/:id', authenticate, asyncHandler(async (req, res) => {
 }))
 
 router.put('/:id/audit', authenticate, asyncHandler(async (req, res) => {
+  const ownerKeys = await getOwnerKeys(req.user.userId)
   const { auditState, registrationStatus } = req.body
   const rows = await query(
     `SELECT r.RegistrationID, a.UserID AS ownerId
@@ -120,7 +145,7 @@ router.put('/:id/audit', authenticate, asyncHandler(async (req, res) => {
     [req.params.id]
   )
   if (!rows.length) return fail(res, 404, '报名信息不存在')
-  if (rows[0].ownerId !== req.user.userId && req.user.userType !== 'admin') {
+  if (!isOwner(rows[0].ownerId, ownerKeys) && req.user.userType !== 'admin') {
     return fail(res, 403, '只能审核自己发布赛事的报名信息')
   }
 
@@ -134,4 +159,3 @@ router.put('/:id/audit', authenticate, asyncHandler(async (req, res) => {
 }))
 
 module.exports = router
-

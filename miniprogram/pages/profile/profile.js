@@ -35,19 +35,28 @@ Page({
         wx.navigateTo({ url: '/pages/edit-profile/edit-profile' })
         break
       case 'myActivities':
-        wx.showToast({ title: '已报名活动待接入页面', icon: 'none' })
+        wx.navigateTo({ url: '/pages/my-registrations/my-registrations' })
         break
       case 'publishedActivities':
-        wx.showToast({ title: '已发布赛事待接入页面', icon: 'none' })
+        wx.navigateTo({ url: '/pages/my-activities/my-activities' })
         break
       case 'myPosts':
-        wx.showToast({ title: '我的主题帖待接入页面', icon: 'none' })
+        wx.navigateTo({ url: '/pages/my-posts/my-posts' })
         break
-      case 'favorites':
-        wx.showToast({ title: '收藏赛事待接入页面', icon: 'none' })
+      case 'myComments':
+        wx.navigateTo({ url: '/pages/my-comments/my-comments' })
         break
       case 'audit':
-        wx.showToast({ title: '报名审核待接入页面', icon: 'none' })
+        wx.navigateTo({ url: '/pages/registration-audit/registration-audit' })
+        break
+      case 'changePassword':
+        wx.navigateTo({ url: '/pages/change-password/change-password' })
+        break
+      case 'changePhone':
+        wx.showToast({ title: '请在编辑资料中修改', icon: 'none' })
+        break
+      case 'changeEmail':
+        wx.showToast({ title: '请在编辑资料中修改', icon: 'none' })
         break
       case 'deleteAccount':
         this.onDeleteAccount()

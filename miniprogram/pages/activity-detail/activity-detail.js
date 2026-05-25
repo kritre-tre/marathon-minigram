@@ -19,29 +19,9 @@ Page({
   },
 
   onSignUp() {
-    const activity = this.data.activity
-    wx.showModal({
-      title: '确认报名',
-      content: `确定要报名参加"${activity.name}"吗？`,
-      success: async (res) => {
-        if (!res.confirm) return
-        try {
-          await api.request({
-            url: '/api/registrations',
-            method: 'POST',
-            auth: true,
-            data: {
-              activityId: activity.id,
-              realName: getApp().globalData.userInfo.name || getApp().globalData.userInfo.username,
-              phoneNumber: getApp().globalData.userInfo.phone || '未填写',
-              emergencyContact: ''
-            }
-          })
-          wx.showToast({ title: '报名已提交', icon: 'success' })
-        } catch (error) {
-          api.showError(error)
-        }
-      }
+    const { activity } = this.data
+    wx.navigateTo({
+      url: `/pages/registration-form/registration-form?activityId=${activity.id}&activityName=${encodeURIComponent(activity.name || '')}`
     })
   }
 })

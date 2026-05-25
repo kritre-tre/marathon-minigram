@@ -16,6 +16,13 @@
         />
       </view>
 
+      <view class="form-group">
+        <view class="form-label">关联赛事</view>
+        <picker mode="selector" range="{{activityOptions}}" value="{{activityIndex}}" bindchange="onActivityChange">
+          <view class="form-picker">{{activityOptions[activityIndex]}}</view>
+        </picker>
+      </view>
+
       <!-- 帖子内容 -->
       <view class="form-group">
         <view class="form-label">帖子内容 *</view>

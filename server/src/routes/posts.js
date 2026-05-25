@@ -1,8 +1,9 @@
 const express = require('express')
-const { query } = require('../config/db')
+const { query, withTransaction } = require('../config/db')
 const { authenticate } = require('../middleware/auth')
 const { asyncHandler, fail, ok } = require('../utils/http')
 const { required } = require('../utils/validators')
+const { deletePost } = require('../utils/cascadeDelete')
 
 const router = express.Router()
 
@@ -10,6 +11,11 @@ function normalizePost(row) {
   return {
     id: row.ThemePostID,
     activityId: row.ActivityID,
+    activityTitle: row.activityTitle || null,
+    activityType: row.activityType || null,
+    activityState: row.activityState || null,
+    activityTime: row.activityTime || null,
+    activityLocation: row.activityLocation || null,
     authorId: row.authorID,
     authorName: row.username || row.authorID,
     title: row.Title,
@@ -22,7 +28,7 @@ function normalizePost(row) {
 
 router.get('/', asyncHandler(async (req, res) => {
   const { keyword, activityId, auditState = 'Approved' } = req.query
-  const filters = []
+  const filters = ["(p.ActivityID IS NULL OR a.AuditState = 'Approved')"]
   const params = []
 
   if (keyword) {
@@ -40,9 +46,13 @@ router.get('/', asyncHandler(async (req, res) => {
 
   const where = filters.length ? `WHERE ${filters.join(' AND ')}` : ''
   const rows = await query(
-    `SELECT p.*, o.username, COUNT(c.CommentID) AS commentCount
+    `SELECT p.*, o.username, a.Title AS activityTitle,
+            a.ActivityType AS activityType, a.ActivityState AS activityState,
+            a.activityTime, a.activityLocation,
+            COUNT(c.CommentID) AS commentCount
      FROM ThemePost p
      LEFT JOIN OrdinaryUser o ON o.userID = p.authorID
+     LEFT JOIN MarathonActivity a ON a.ActivityID = p.ActivityID
      LEFT JOIN Comment c ON c.ThemePostID = p.ThemePostID AND c.AuditState = 'Approved'
      ${where}
      GROUP BY p.ThemePostID
@@ -54,9 +64,13 @@ router.get('/', asyncHandler(async (req, res) => {
 
 router.get('/my', authenticate, asyncHandler(async (req, res) => {
   const rows = await query(
-    `SELECT p.*, o.username, COUNT(c.CommentID) AS commentCount
+    `SELECT p.*, o.username, a.Title AS activityTitle,
+            a.ActivityType AS activityType, a.ActivityState AS activityState,
+            a.activityTime, a.activityLocation,
+            COUNT(c.CommentID) AS commentCount
      FROM ThemePost p
      LEFT JOIN OrdinaryUser o ON o.userID = p.authorID
+     LEFT JOIN MarathonActivity a ON a.ActivityID = p.ActivityID AND a.AuditState = 'Approved'
      LEFT JOIN Comment c ON c.ThemePostID = p.ThemePostID
      WHERE p.authorID = ?
      GROUP BY p.ThemePostID
@@ -68,9 +82,13 @@ router.get('/my', authenticate, asyncHandler(async (req, res) => {
 
 router.get('/:id', asyncHandler(async (req, res) => {
   const rows = await query(
-    `SELECT p.*, o.username, COUNT(c.CommentID) AS commentCount
+    `SELECT p.*, o.username, a.Title AS activityTitle,
+            a.ActivityType AS activityType, a.ActivityState AS activityState,
+            a.activityTime, a.activityLocation,
+            COUNT(c.CommentID) AS commentCount
      FROM ThemePost p
      LEFT JOIN OrdinaryUser o ON o.userID = p.authorID
+     LEFT JOIN MarathonActivity a ON a.ActivityID = p.ActivityID AND a.AuditState = 'Approved'
      LEFT JOIN Comment c ON c.ThemePostID = p.ThemePostID AND c.AuditState = 'Approved'
      WHERE p.ThemePostID = ?
      GROUP BY p.ThemePostID
@@ -85,6 +103,23 @@ router.post('/', authenticate, asyncHandler(async (req, res) => {
   const { activityId, title, content } = req.body
   if (!required(title) || !required(content)) {
     return fail(res, 400, '帖子标题和内容不能为空')
+  }
+
+  if (activityId) {
+    const activities = await query(
+      "SELECT ActivityID FROM MarathonActivity WHERE ActivityID = ? AND AuditState = 'Approved' LIMIT 1",
+      [activityId]
+    )
+    if (!activities.length) return fail(res, 400, '赛事不存在或未审核通过')
+
+    const registrations = await query(
+      `SELECT RegistrationID
+       FROM Registration_Inf
+       WHERE ActivityID = ? AND UserID = ?
+       LIMIT 1`,
+      [activityId, req.user.userId]
+    )
+    if (!registrations.length) return fail(res, 403, '未报名该赛事，不能发布关联主题帖')
   }
 
   const result = await query(
@@ -127,9 +162,10 @@ router.delete('/:id', authenticate, asyncHandler(async (req, res) => {
     return fail(res, 403, '只能删除自己的帖子')
   }
 
-  await query('DELETE FROM ThemePost WHERE ThemePostID = ?', [req.params.id])
+  await withTransaction(async (connection) => {
+    await deletePost(connection, req.params.id)
+  })
   return ok(res, null, '帖子已删除')
 }))
 
 module.exports = router
-

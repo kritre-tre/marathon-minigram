@@ -1,0 +1,15 @@
+<view class="container">
+  <view class="item" wx:for="{{list}}" wx:key="id">
+    <image wx:if="{{item.hasCover}}" class="cover" src="{{item.coverSrc}}" mode="aspectFill" />
+    <view wx:else class="cover-fallback" style="background: {{item.gradient}};"></view>
+    <view class="title">{{item.name}}</view>
+    <view class="meta">{{item.address}} · {{item.date}}</view>
+    <view class="meta">类型：{{item.typeText}} · 审核：{{item.auditStateText}} · 状态：{{item.status}}</view>
+    <view class="actions">
+      <button size="mini" bindtap="onEdit" data-id="{{item.id}}">编辑</button>
+      <button size="mini" bindtap="onAudit" data-id="{{item.id}}" data-name="{{item.name}}">审核报名</button>
+      <button class="danger" size="mini" bindtap="onDelete" data-id="{{item.id}}">删除</button>
+    </view>
+  </view>
+  <view class="empty" wx:if="{{!list.length}}">暂无已发布赛事</view>
+</view>

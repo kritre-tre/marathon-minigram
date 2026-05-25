@@ -1,66 +1,46 @@
-<!--pages/post/post.wxml-->
 <view class="container">
-  <!-- 页面标题 -->
   <view class="page-title">主题帖</view>
 
-  <!-- 搜索卡片 -->
   <view class="card search-card">
     <view class="search-wrapper">
-      <input 
-        class="search-input" 
-        placeholder="搜索主题帖..." 
+      <input
+        class="search-input"
+        placeholder="搜索主题帖..."
         value="{{searchText}}"
         bindinput="onSearchInput"
         bindconfirm="onSearch"
       />
-      <view class="search-btn" bindtap="onSearch">
-        <text>🔍</text>
-      </view>
+      <view class="search-btn" bindtap="onSearch"><text>搜</text></view>
     </view>
   </view>
 
-  <!-- 帖子列表 -->
   <scroll-view scroll-y class="post-list">
-    <view class="post-card" 
-          wx:for="{{filteredPosts}}" 
-          wx:key="id"
-          bindtap="onPostTap"
-          data-id="{{item.id}}">
-      <!-- 用户信息 -->
+    <view class="post-card" wx:for="{{filteredPosts}}" wx:key="id" bindtap="onPostTap" data-id="{{item.id}}">
       <view class="user-info">
-        <view class="avatar">
-          <text>{{item.userAvatar}}</text>
-        </view>
+        <view class="avatar"><text>{{item.userAvatar}}</text></view>
         <view class="user-name">{{item.userName}}</view>
         <view class="post-time">{{item.time}}</view>
       </view>
 
-      <!-- 帖子标题 -->
       <view class="post-title">{{item.title}}</view>
-
-      <!-- 帖子内容预览 -->
+      <view class="post-activity" wx:if="{{item.activityId}}">关联赛事：{{item.activityTitle || ('赛事ID ' + item.activityId)}}</view>
       <view class="post-content">{{item.content}}</view>
 
-      <!-- 操作栏 -->
       <view class="action-bar">
         <view class="action-item" catchtap="onLike" data-id="{{item.id}}">
-          <text>👍</text>
+          <text>赞</text>
           <text class="action-count">{{item.likeCount}}</text>
         </view>
         <view class="action-item" catchtap="onComment" data-id="{{item.id}}">
-          <text>💬</text>
+          <text>评</text>
           <text class="action-count">{{item.commentCount}}</text>
         </view>
         <view class="action-item" catchtap="onShare" data-id="{{item.id}}">
-          <text>🔗</text>
-          <text class="action-count">分享</text>
+          <text>分享</text>
         </view>
       </view>
     </view>
   </scroll-view>
 
-  <!-- 添加按钮 -->
-  <view class="fab" bindtap="onAddPost">
-    <text>+</text>
-  </view>
+  <view class="fab" bindtap="onAddPost"><text>+</text></view>
 </view>

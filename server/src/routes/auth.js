@@ -4,8 +4,10 @@ const { query, withTransaction } = require('../config/db')
 const { signToken, authenticate } = require('../middleware/auth')
 const { asyncHandler, fail, ok } = require('../utils/http')
 const { required, pick } = require('../utils/validators')
+const { deleteUser } = require('../utils/cascadeDelete')
 
 const router = express.Router()
+const PASSWORD_COL_MAX = 20
 
 function normalizeUser(row) {
   if (!row) return null
@@ -38,9 +40,9 @@ async function findLoginUser(account, role) {
   const rows = await query(
     `SELECT u.UserID, u.userPassword, u.userType, o.username, o.phone, o.email,
             o.realName, o.gender, o.birthDate, o.school, o.education
-     FROM OrdinaryUser o
-     JOIN user_database u ON u.UserID = o.userID
-     WHERE o.email = ?
+     FROM user_database u
+     LEFT JOIN OrdinaryUser o ON o.userID = u.UserID
+     WHERE u.UserID = ?
      LIMIT 1`,
     [account]
   )
@@ -53,6 +55,24 @@ async function getNextOrdinaryUserId(connection) {
      FROM OrdinaryUser`
   )
   return String(rows[0].nextUserId)
+}
+
+function isBcryptHash(value) {
+  return /^\$2[aby]\$\d{2}\$/.test(String(value || ''))
+}
+
+async function encodePasswordForStorage(plainPassword) {
+  const hash = await bcrypt.hash(
+    plainPassword,
+    Number(process.env.BCRYPT_ROUNDS || 10)
+  )
+  return hash.length <= PASSWORD_COL_MAX ? hash : plainPassword
+}
+
+async function verifyPassword(plainPassword, storedPassword) {
+  if (plainPassword === storedPassword) return true
+  if (!isBcryptHash(storedPassword)) return false
+  return bcrypt.compare(plainPassword, storedPassword)
 }
 
 router.post('/register', asyncHandler(async (req, res) => {
@@ -69,7 +89,7 @@ router.post('/register', asyncHandler(async (req, res) => {
   } = req.body
 
   if (!required(email) || !required(password)) {
-    return fail(res, 400, '邮箱和密码不能为空')
+    return fail(res, 400, 'email and password are required')
   }
 
   const exists = await query(
@@ -77,13 +97,10 @@ router.post('/register', asyncHandler(async (req, res) => {
     [email]
   )
   if (exists.length) {
-    return fail(res, 409, '邮箱已注册')
+    return fail(res, 409, 'email already exists')
   }
 
-  const passwordHash = await bcrypt.hash(
-    password,
-    Number(process.env.BCRYPT_ROUNDS || 10)
-  )
+  const passwordValue = await encodePasswordForStorage(password)
 
   const userId = await withTransaction(async (connection) => {
     const nextUserId = await getNextOrdinaryUserId(connection)
@@ -91,7 +108,7 @@ router.post('/register', asyncHandler(async (req, res) => {
 
     await connection.execute(
       'INSERT INTO user_database (UserID, userPassword, userType) VALUES (?, ?, ?)',
-      [nextUserId, passwordHash, 'ordinary']
+      [nextUserId, passwordValue, 'ordinary']
     )
     await connection.execute(
       `INSERT INTO OrdinaryUser
@@ -113,7 +130,7 @@ router.post('/register', asyncHandler(async (req, res) => {
     return nextUserId
   })
 
-  return ok(res, { userId, email }, '注册成功')
+  return ok(res, { userId, email }, 'register success')
 }))
 
 router.post('/login', asyncHandler(async (req, res) => {
@@ -121,27 +138,26 @@ router.post('/login', asyncHandler(async (req, res) => {
   const loginAccount = account || email || username
 
   if (!required(loginAccount) || !required(password)) {
-    return fail(res, 400, role === 'admin' ? '账号和密码不能为空' : '邮箱和密码不能为空')
+    return fail(res, 400, role === 'admin' ? 'admin account and password are required' : 'user id and password are required')
   }
 
   const row = await findLoginUser(loginAccount, role)
   if (!row) {
-    return fail(res, 401, role === 'admin' ? '账号或密码错误' : '邮箱或密码错误')
+    return fail(res, 401, role === 'admin' ? 'invalid admin credentials' : 'invalid credentials')
   }
 
   if (row.userType === 'disabled') {
-    return fail(res, 403, '账号已被禁用')
+    return fail(res, 403, 'account disabled')
   }
 
-  const matched = await bcrypt.compare(password, row.userPassword)
-  const legacyMatched = password === row.userPassword
-  if (!matched && !legacyMatched) {
-    return fail(res, 401, role === 'admin' ? '账号或密码错误' : '邮箱或密码错误')
+  const matched = await verifyPassword(password, row.userPassword)
+  if (!matched) {
+    return fail(res, 401, role === 'admin' ? 'invalid admin credentials' : 'invalid credentials')
   }
 
   const user = normalizeUser(row)
   const token = signToken(user)
-  return ok(res, { token, user }, '登录成功')
+  return ok(res, { token, user }, 'login success')
 }))
 
 router.get('/me', authenticate, asyncHandler(async (req, res) => {
@@ -174,7 +190,7 @@ router.put('/me', authenticate, asyncHandler(async (req, res) => {
       'SELECT userID FROM OrdinaryUser WHERE email = ? AND userID <> ? LIMIT 1',
       [data.email, req.user.userId]
     )
-    if (exists.length) return fail(res, 409, '邮箱已被使用')
+    if (exists.length) return fail(res, 409, 'email already in use')
   }
 
   await query(
@@ -201,44 +217,63 @@ router.put('/me', authenticate, asyncHandler(async (req, res) => {
     ]
   )
 
-  return ok(res, null, '保存成功')
+  return ok(res, null, 'profile updated')
 }))
 
 router.put('/password', authenticate, asyncHandler(async (req, res) => {
   const { oldPassword, newPassword } = req.body
   if (!required(oldPassword) || !required(newPassword)) {
-    return fail(res, 400, '原密码和新密码不能为空')
+    return fail(res, 400, 'oldPassword and newPassword are required')
   }
 
   const rows = await query(
     'SELECT userPassword FROM user_database WHERE UserID = ? LIMIT 1',
     [req.user.userId]
   )
-  if (!rows.length) return fail(res, 404, '用户不存在')
+  if (!rows.length) return fail(res, 404, 'user not found')
 
-  const matched = await bcrypt.compare(oldPassword, rows[0].userPassword)
-  const legacyMatched = oldPassword === rows[0].userPassword
-  if (!matched && !legacyMatched) {
-    return fail(res, 400, '原密码错误')
+  const matched = await verifyPassword(oldPassword, rows[0].userPassword)
+  if (!matched) {
+    return fail(res, 400, 'old password incorrect')
   }
 
-  const passwordHash = await bcrypt.hash(
-    newPassword,
-    Number(process.env.BCRYPT_ROUNDS || 10)
-  )
+  const passwordValue = await encodePasswordForStorage(newPassword)
   await query(
     'UPDATE user_database SET userPassword = ? WHERE UserID = ?',
-    [passwordHash, req.user.userId]
+    [passwordValue, req.user.userId]
   )
-  return ok(res, null, '密码已修改')
+  return ok(res, null, 'password updated')
+}))
+
+router.post('/reset-password', asyncHandler(async (req, res) => {
+  const { email, newPassword } = req.body
+  if (!required(email) || !required(newPassword)) {
+    return fail(res, 400, 'email and newPassword are required')
+  }
+
+  const users = await query(
+    `SELECT userID
+     FROM OrdinaryUser
+     WHERE email = ?
+     LIMIT 1`,
+    [email]
+  )
+  if (!users.length) return fail(res, 404, 'user not found')
+
+  const passwordValue = await encodePasswordForStorage(newPassword)
+
+  await query(
+    'UPDATE user_database SET userPassword = ? WHERE UserID = ?',
+    [passwordValue, users[0].userID]
+  )
+  return ok(res, null, 'password reset success')
 }))
 
 router.delete('/me', authenticate, asyncHandler(async (req, res) => {
-  await query(
-    "UPDATE user_database SET userType = 'disabled' WHERE UserID = ?",
-    [req.user.userId]
-  )
-  return ok(res, null, '账号已注销')
+  await withTransaction(async (connection) => {
+    await deleteUser(connection, req.user.userId)
+  })
+  return ok(res, null, 'account deleted')
 }))
 
 module.exports = router

@@ -1,0 +1,20 @@
+<view class="container">
+  <view class="card" wx:if="{{activities.length}}">
+    <picker mode="selector" range="{{activities}}" range-key="name" bindchange="onActivityChange" value="{{activityIndex}}">
+      <view class="picker">当前赛事：{{activities[activityIndex].name}}</view>
+    </picker>
+  </view>
+
+  <view class="item" wx:for="{{registrations}}" wx:key="id">
+    <view class="title">{{item.realName}} · {{item.phoneNumber}}</view>
+    <view class="meta">审核：{{item.auditState}} · 状态：{{item.registrationStatus}}</view>
+    <view class="meta">紧急联系人：{{item.emergencyContact || '-'}}</view>
+    <view class="actions">
+      <button size="mini" type="primary" bindtap="onApprove" data-id="{{item.id}}">通过</button>
+      <button size="mini" bindtap="onReject" data-id="{{item.id}}">拒绝</button>
+    </view>
+  </view>
+
+  <view class="empty" wx:if="{{!activities.length}}">你还没有发布可审核报名的赛事</view>
+  <view class="empty" wx:elif="{{!registrations.length}}">当前赛事暂无报名记录</view>
+</view>

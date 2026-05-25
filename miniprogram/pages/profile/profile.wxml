@@ -1,138 +1,59 @@
-<!--pages/profile/profile.wxml-->
 <view class="container">
   <scroll-view scroll-y class="scroll-view">
-    <!-- 页面标题 -->
     <view class="page-title">我的个人资料</view>
 
-    <!-- 用户头像和基本信息卡片 -->
     <view class="card user-card">
       <view class="avatar-lg">
-        <text>{{userInfo.name || '用'}}</text>
+        <text>{{userInfo.name || 'U'}}</text>
       </view>
       <view class="user-name">{{userInfo.name || '用户'}}</view>
-      <view class="user-type">{{userInfo.userType}}</view>
-      <view class="user-emoji">🐔</view>
+      <view class="user-type">{{userInfo.userTypeText || userInfo.userType}}</view>
     </view>
 
-    <!-- 个人信息卡片 -->
     <view class="card info-card">
       <view class="card-title">个人信息</view>
-      
-      <view class="info-item">
-        <view class="info-label">用户名</view>
-        <view class="info-value">{{userInfo.username || '-'}}</view>
-      </view>
+      <view class="info-item"><view class="info-label">用户名</view><view class="info-value">{{userInfo.username || '-'}}</view></view>
       <view class="divider"></view>
-      
-      <view class="info-item">
-        <view class="info-label">手机号</view>
-        <view class="info-value">{{userInfo.phone || '-'}}</view>
-      </view>
+      <view class="info-item"><view class="info-label">手机号</view><view class="info-value">{{userInfo.phone || '-'}}</view></view>
       <view class="divider"></view>
-      
-      <view class="info-item">
-        <view class="info-label">姓名</view>
-        <view class="info-value">{{userInfo.name || '-'}}</view>
-      </view>
+      <view class="info-item"><view class="info-label">姓名</view><view class="info-value">{{userInfo.name || '-'}}</view></view>
       <view class="divider"></view>
-      
-      <view class="info-item">
-        <view class="info-label">学历</view>
-        <view class="info-value">{{userInfo.education || '-'}}</view>
-      </view>
+      <view class="info-item"><view class="info-label">学历</view><view class="info-value">{{userInfo.education || '-'}}</view></view>
       <view class="divider"></view>
-      
-      <view class="info-item">
-        <view class="info-label">出生日期</view>
-        <view class="info-value">{{userInfo.birthday || '-'}}</view>
-      </view>
+      <view class="info-item"><view class="info-label">出生日期</view><view class="info-value">{{userInfo.birthday || '-'}}</view></view>
       <view class="divider"></view>
-      
-      <view class="info-item">
-        <view class="info-label">学校/工作单位</view>
-        <view class="info-value">{{userInfo.school || '-'}}</view>
-      </view>
+      <view class="info-item"><view class="info-label">学校/单位</view><view class="info-value">{{userInfo.school || '-'}}</view></view>
       <view class="divider"></view>
-      
-      <view class="info-item">
-        <view class="info-label">个人电子邮箱</view>
-        <view class="info-value">{{userInfo.email || '-'}}</view>
-      </view>
+      <view class="info-item"><view class="info-label">邮箱</view><view class="info-value">{{userInfo.email || '-'}}</view></view>
       <view class="divider"></view>
-      
-      <view class="info-item">
-        <view class="info-label">性别</view>
-        <view class="info-value">{{userInfo.gender || '-'}}</view>
-      </view>
+      <view class="info-item"><view class="info-label">性别</view><view class="info-value">{{userInfo.gender || '-'}}</view></view>
     </view>
 
-    <!-- 菜单卡片 -->
     <view class="card menu-card">
-      <view class="menu-item" bindtap="onMenuTap" data-type="myActivities">
-        <text>已报名活动</text>
-        <text class="arrow">›</text>
-      </view>
+      <view class="menu-item" bindtap="onMenuTap" data-type="myActivities"><text>已报名活动</text><text class="arrow">></text></view>
       <view class="divider"></view>
-      
-      <view class="menu-item" bindtap="onMenuTap" data-type="publishedActivities">
-        <text>已发布赛事活动</text>
-        <text class="arrow">›</text>
-      </view>
+      <view class="menu-item" bindtap="onMenuTap" data-type="publishedActivities"><text>已发布赛事活动</text><text class="arrow">></text></view>
       <view class="divider"></view>
-      
-      <view class="menu-item" bindtap="onMenuTap" data-type="myPosts">
-        <text>我的主题帖</text>
-        <text class="arrow">›</text>
-      </view>
+      <view class="menu-item" bindtap="onMenuTap" data-type="myPosts"><text>我的主题帖</text><text class="arrow">></text></view>
       <view class="divider"></view>
-      
-      <view class="menu-item" bindtap="onMenuTap" data-type="favorites">
-        <text>收藏赛事</text>
-        <text class="arrow">›</text>
-      </view>
+      <view class="menu-item" bindtap="onMenuTap" data-type="myComments"><text>我的评论</text><text class="arrow">></text></view>
       <view class="divider"></view>
-      
-      <view class="menu-item" bindtap="onMenuTap" data-type="audit">
-        <text>审核报名信息</text>
-        <text class="arrow">›</text>
-      </view>
+      <view class="menu-item" bindtap="onMenuTap" data-type="audit"><text>审核报名信息</text><text class="arrow">></text></view>
     </view>
 
-    <!-- 账号管理卡片 -->
     <view class="card menu-card">
       <view class="card-title">账号管理</view>
-      
-      <view class="menu-item" bindtap="onMenuTap" data-type="editProfile">
-        <text>编辑个人资料</text>
-        <text class="arrow">›</text>
-      </view>
+      <view class="menu-item" bindtap="onMenuTap" data-type="editProfile"><text>编辑个人资料</text><text class="arrow">></text></view>
       <view class="divider"></view>
-      
-      <view class="menu-item" bindtap="onMenuTap" data-type="changePhone">
-        <text>修改手机号</text>
-        <text class="arrow">›</text>
-      </view>
+      <view class="menu-item" bindtap="onMenuTap" data-type="changePhone"><text>修改手机号</text><text class="arrow">></text></view>
       <view class="divider"></view>
-      
-      <view class="menu-item" bindtap="onMenuTap" data-type="changeEmail">
-        <text>修改电子邮箱</text>
-        <text class="arrow">›</text>
-      </view>
+      <view class="menu-item" bindtap="onMenuTap" data-type="changeEmail"><text>修改邮箱</text><text class="arrow">></text></view>
       <view class="divider"></view>
-      
-      <view class="menu-item" bindtap="onMenuTap" data-type="changePassword">
-        <text>修改密码</text>
-        <text class="arrow">›</text>
-      </view>
+      <view class="menu-item" bindtap="onMenuTap" data-type="changePassword"><text>修改密码</text><text class="arrow">></text></view>
       <view class="divider"></view>
-      
-      <view class="menu-item danger" bindtap="onMenuTap" data-type="deleteAccount">
-        <text>注销账户</text>
-        <text class="arrow">›</text>
-      </view>
+      <view class="menu-item danger" bindtap="onMenuTap" data-type="deleteAccount"><text>注销账户</text><text class="arrow">></text></view>
     </view>
 
-    <!-- 退出登录按钮 -->
     <view class="logout-wrapper">
       <button class="btn-logout" bindtap="onLogout">退出登录</button>
     </view>

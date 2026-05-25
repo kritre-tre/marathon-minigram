@@ -1,4 +1,3 @@
-// pages/admin-profile/admin-profile.js
 const app = getApp()
 
 Page({
@@ -7,8 +6,17 @@ Page({
   },
 
   onShow() {
+    const user = app.globalData.userInfo || null
+    if (!user) {
+      this.setData({ userInfo: null })
+      return
+    }
+    const name = user.name || user.username || 'A'
     this.setData({
-      userInfo: app.globalData.userInfo
+      userInfo: {
+        ...user,
+        avatarText: String(name).charAt(0).toUpperCase()
+      }
     })
   },
 
@@ -16,7 +24,7 @@ Page({
     const type = e.currentTarget.dataset.type
     switch (type) {
       case 'changePassword':
-        wx.showToast({ title: '功能开发中', icon: 'none' })
+        wx.navigateTo({ url: '/pages/change-password/change-password' })
         break
       case 'about':
         wx.showModal({ title: '关于', content: '马拉松参赛助手 v1.0\n管理后台' })

@@ -39,32 +39,29 @@ Page({
     let filtered = posts
     if (searchText) {
       filtered = filtered.filter(item =>
-        item.title.includes(searchText) || item.content.includes(searchText)
+        String(item.title || '').includes(searchText) ||
+        String(item.content || '').includes(searchText)
       )
     }
     this.setData({ filteredPosts: filtered })
   },
 
-  onPostTap() {
-    wx.showToast({ title: '帖子详情页待接入', icon: 'none' })
-  },
-
-  onLike(e) {
+  onPostTap(e) {
     const id = e.currentTarget.dataset.id
-    const posts = this.data.posts.map(item => {
-      if (item.id === id) return { ...item, likeCount: item.likeCount + 1 }
-      return item
-    })
-    this.setData({ posts })
-    this.filterPosts()
+    wx.navigateTo({ url: `/pages/post-detail/post-detail?id=${id}` })
   },
 
-  onComment() {
-    wx.showToast({ title: '评论页待接入', icon: 'none' })
+  onLike() {
+    wx.showToast({ title: '点赞功能暂未接入后端', icon: 'none' })
+  },
+
+  onComment(e) {
+    const id = e.currentTarget.dataset.id
+    wx.navigateTo({ url: `/pages/post-detail/post-detail?id=${id}` })
   },
 
   onShare() {
-    wx.showToast({ title: '分享功能待接入', icon: 'none' })
+    wx.showToast({ title: '请使用右上角分享', icon: 'none' })
   },
 
   onAddPost() {

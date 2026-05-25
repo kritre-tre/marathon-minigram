@@ -1,0 +1,11 @@
+<view class="container">
+  <view class="item" wx:for="{{list}}" wx:key="id">
+    <view class="meta">{{item.time}} · {{item.auditState}}</view>
+    <view class="content">{{item.content}}</view>
+    <view class="actions">
+      <button size="mini" bindtap="onGoPost" data-postid="{{item.postId}}">查看帖子</button>
+      <button size="mini" class="danger" bindtap="onDelete" data-id="{{item.id}}">删除</button>
+    </view>
+  </view>
+  <view class="empty" wx:if="{{!list.length}}">暂无我的评论</view>
+</view>

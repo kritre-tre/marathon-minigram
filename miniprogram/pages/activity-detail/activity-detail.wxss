@@ -18,6 +18,12 @@
   justify-content: center;
 }
 
+.cover-img {
+  width: 100%;
+  height: 400rpx;
+  display: block;
+}
+
 .cover-title {
   font-size: 48rpx;
   font-weight: bold;
@@ -100,6 +106,7 @@
 .btn-wrapper {
   padding: 40rpx 20rpx;
 }
+
 
 .btn-primary {
   width: 100%;

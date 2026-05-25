@@ -1,8 +1,9 @@
 const express = require('express')
-const { query } = require('../config/db')
+const { query, withTransaction } = require('../config/db')
 const { authenticate } = require('../middleware/auth')
 const { asyncHandler, fail, ok } = require('../utils/http')
 const { required } = require('../utils/validators')
+const { deleteComment } = require('../utils/cascadeDelete')
 
 const router = express.Router()
 
@@ -67,9 +68,10 @@ router.delete('/:id', authenticate, asyncHandler(async (req, res) => {
     return fail(res, 403, '只能删除自己的评论')
   }
 
-  await query('DELETE FROM Comment WHERE CommentID = ?', [req.params.id])
+  await withTransaction(async (connection) => {
+    await deleteComment(connection, req.params.id)
+  })
   return ok(res, null, '评论已删除')
 }))
 
 module.exports = router
-

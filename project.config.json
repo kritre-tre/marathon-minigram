@@ -2,7 +2,7 @@
   "miniprogramRoot": "miniprogram/",
   "projectname": "marathon-WeChat",
   "description": "马拉松参赛助手微信小程序",
-  "appid": "wxc1a5657fe624f8ec",
+  "appid": "wxbb60c1fc8dbeeca8",
   "setting": {
     "urlCheck": true,
     "es6": true,

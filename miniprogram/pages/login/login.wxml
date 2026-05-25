@@ -1,8 +1,7 @@
-<!--pages/login/login.wxml-->
 <view class="container">
   <scroll-view scroll-y class="scroll-view">
     <view class="login-content">
-      <view class="logo">跑</view>
+      <view class="logo">🏃</view>
       <view class="app-name">马拉松参赛助手</view>
 
       <view class="role-switch">
@@ -15,11 +14,11 @@
       </view>
 
       <view class="form-group">
-        <view class="input-label">{{role === 'admin' ? '管理员账号' : '邮箱'}}</view>
+        <view class="input-label">{{role === 'admin' ? '管理员账号' : '用户ID'}}</view>
         <input
           class="input-field"
-          placeholder="{{role === 'admin' ? '请输入管理员账号' : '请输入邮箱'}}"
-          value="{{email}}"
+          placeholder="{{role === 'admin' ? '请输入管理员账号' : '请输入用户ID'}}"
+          value="{{account}}"
           bindinput="onEmailInput"
         />
       </view>
@@ -33,6 +32,10 @@
           value="{{password}}"
           bindinput="onPasswordInput"
         />
+      </view>
+
+      <view class="forgot-password" bindtap="onForgotPassword" wx:if="{{role === 'user'}}">
+        忘记密码？
       </view>
 
       <button class="btn-primary" bindtap="onLogin">{{role === 'admin' ? '管理员登录' : '登录'}}</button>

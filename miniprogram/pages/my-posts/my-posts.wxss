@@ -1,0 +1,8 @@
+.container { min-height: 100vh; background: #fff5f5; padding: 20rpx; }
+.item { background: #fff; border-radius: 16rpx; padding: 20rpx; margin-bottom: 16rpx; }
+.title { font-size: 30rpx; font-weight: 700; margin-bottom: 8rpx; }
+.meta { color: #666; font-size: 24rpx; margin-bottom: 6rpx; }
+.content { color: #333; font-size: 26rpx; margin: 8rpx 0; }
+.actions { margin-top: 12rpx; display: flex; gap: 10rpx; }
+.danger { background: #f44336; color: #fff; border: none; }
+.empty { text-align: center; color: #999; margin-top: 60rpx; }

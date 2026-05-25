@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="card" wx:if="{{post}}">
+    <view class="title">{{post.title}}</view>
+    <view class="meta">{{post.userName}} · {{post.time}}</view>
+    <view class="activity-link" wx:if="{{post.activityId}}">
+      <view class="activity-name">关联赛事：{{post.activityTitle || ('赛事ID ' + post.activityId)}}</view>
+      <view class="activity-meta">{{post.activityTypeText}} {{post.activityDate}} {{post.activityLocation}}</view>
+      <view class="activity-status">{{post.activityStatusText}}</view>
+    </view>
+    <view class="content">{{post.content}}</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">评论</view>
+    <block wx:if="{{comments.length}}">
+      <view class="comment-item" wx:for="{{comments}}" wx:key="id">
+        <view class="comment-meta">{{item.authorName}} · {{item.time}}</view>
+        <view class="comment-content">{{item.content}}</view>
+      </view>
+    </block>
+    <view class="empty" wx:else>暂无已通过评论</view>
+  </view>
+
+  <view class="card">
+    <textarea
+      class="textarea"
+      placeholder="写下你的评论..."
+      value="{{commentContent}}"
+      bindinput="onInputComment"
+      maxlength="300"
+    />
+    <button class="btn" bindtap="onSubmitComment">提交评论</button>
+  </view>
+</view>

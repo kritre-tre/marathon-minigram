@@ -1,113 +1,61 @@
-<!--pages/add-activity/add-activity.wxml-->
 <view class="container">
   <scroll-view scroll-y class="scroll-view">
-    <!-- 表单卡片 -->
     <view class="card form-card">
-      <!-- 赛事名称 -->
       <view class="form-group">
         <view class="form-label">赛事名称 *</view>
-        <input 
-          class="form-input" 
-          placeholder="请输入赛事名称" 
-          value="{{form.name}}"
-          bindinput="onInput"
-          data-field="name"
-        />
+        <input class="form-input" placeholder="请输入赛事名称" value="{{form.name}}" bindinput="onInput" data-field="name" />
       </view>
 
-      <!-- 举办城市和详细地址 -->
       <view class="form-row">
         <view class="form-group half">
-          <view class="form-label">举办城市 *</view>
-          <input 
-            class="form-input" 
-            placeholder="请输入城市" 
-            value="{{form.city}}"
-            bindinput="onInput"
-            data-field="city"
-          />
+          <view class="form-label">举办城市</view>
+          <input class="form-input" placeholder="请输入城市" value="{{form.city}}" bindinput="onInput" data-field="city" />
         </view>
         <view class="form-group half">
           <view class="form-label">详细地址 *</view>
-          <input 
-            class="form-input" 
-            placeholder="请输入地址" 
-            value="{{form.address}}"
-            bindinput="onInput"
-            data-field="address"
-          />
+          <input class="form-input" placeholder="请输入详细地址" value="{{form.address}}" bindinput="onInput" data-field="address" />
         </view>
       </view>
 
-      <!-- 活动日期和报名截止日期 -->
       <view class="form-row">
         <view class="form-group half">
           <view class="form-label">活动日期 *</view>
           <picker mode="date" value="{{form.date}}" bindchange="onDateChange" data-field="date">
-            <view class="form-input picker-input">
-              {{form.date || '请选择日期'}}
-            </view>
+            <view class="form-input picker-input">{{form.date || '请选择日期'}}</view>
           </picker>
         </view>
         <view class="form-group half">
-          <view class="form-label">报名截止日期 *</view>
+          <view class="form-label">报名截止 *</view>
           <picker mode="date" value="{{form.deadline}}" bindchange="onDateChange" data-field="deadline">
-            <view class="form-input picker-input">
-              {{form.deadline || '请选择日期'}}
-            </view>
+            <view class="form-input picker-input">{{form.deadline || '请选择日期'}}</view>
           </picker>
         </view>
       </view>
 
-      <!-- 赛事类型和招募人数 -->
       <view class="form-row">
         <view class="form-group half">
           <view class="form-label">赛事类型 *</view>
-          <picker mode="selector" range="{{typeOptions}}" bindchange="onTypeChange">
-            <view class="form-input picker-input">
-              {{form.type || '请选择类型'}}
-            </view>
+          <picker mode="selector" range="{{typeOptions}}" range-key="label" bindchange="onTypeChange" value="{{typeIndex}}">
+            <view class="form-input picker-input">{{typeOptions[typeIndex].label}}</view>
           </picker>
         </view>
         <view class="form-group half">
           <view class="form-label">招募人数 *</view>
-          <input 
-            class="form-input" 
-            placeholder="请输入人数" 
-            type="number"
-            value="{{form.count}}"
-            bindinput="onInput"
-            data-field="count"
-          />
+          <input class="form-input" placeholder="请输入人数" type="number" value="{{form.count}}" bindinput="onInput" data-field="count" />
         </view>
       </view>
 
-      <!-- 赛事简介 -->
       <view class="form-group">
         <view class="form-label">赛事简介 *</view>
-        <textarea 
-          class="form-textarea" 
-          placeholder="请输入赛事简介" 
-          value="{{form.intro}}"
-          bindinput="onInput"
-          data-field="intro"
-        />
+        <textarea class="form-textarea" placeholder="请输入赛事简介" value="{{form.intro}}" bindinput="onInput" data-field="intro" />
       </view>
 
-      <!-- 详细说明 -->
       <view class="form-group">
         <view class="form-label">详细说明</view>
-        <textarea 
-          class="form-textarea large" 
-          placeholder="请输入详细说明（路线、费用、注意事项等）" 
-          value="{{form.detail}}"
-          bindinput="onInput"
-          data-field="detail"
-        />
+        <textarea class="form-textarea large" placeholder="请输入详细说明（路线、费用、注意事项等）" value="{{form.detail}}" bindinput="onInput" data-field="detail" />
       </view>
 
-      <!-- 提交按钮 -->
-      <button class="btn-primary" bindtap="onSubmit">发布赛事</button>
+      <button class="btn-primary" bindtap="onSubmit">{{activityId ? '保存修改' : '发布赛事'}}</button>
     </view>
   </scroll-view>
 </view>

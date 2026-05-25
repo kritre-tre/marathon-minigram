@@ -13,6 +13,7 @@
       <view class="card" wx:if="{{type === 'post'}}">
         <view class="detail-title">{{item.title}}</view>
         <view class="detail-meta">{{item.author}} · {{item.time}}</view>
+        <view class="detail-meta" wx:if="{{item.activityTitle}}">关联赛事：{{item.activityTitle}}</view>
         <view class="divider"></view>
         <view class="detail-content">{{item.content}}</view>
       </view>
@@ -24,12 +25,13 @@
         <view class="divider"></view>
         <view class="detail-meta">作者：{{item.author}} · {{item.time}}</view>
         <view class="detail-meta">所属帖子：{{item.postTitle}}</view>
+        <view class="detail-meta" wx:if="{{item.postAuthor}}">主题帖作者：{{item.postAuthor}}</view>
       </view>
 
       <!-- 赛事详情 -->
       <view class="card" wx:if="{{type === 'activity'}}">
         <view class="detail-title">{{item.name}}</view>
-        <view class="detail-meta">{{item.type}} · {{item.city}} · {{item.address}}</view>
+        <view class="detail-meta">{{item.typeText}} · {{item.activityStateText}} · {{item.city}} · {{item.address}}</view>
         <view class="detail-meta">日期：{{item.date}} · 报名截止：{{item.deadline}}</view>
         <view class="detail-meta">规模：{{item.count}}人 · 提交者：{{item.submitter}}</view>
         <view class="divider"></view>
@@ -44,6 +46,9 @@
       <view class="action-bar" wx:if="{{item.status === 'Pending' || item.status === 'pending'}}">
         <button class="btn-approve" bindtap="onApprove">审核通过</button>
         <button class="btn-reject" bindtap="onReject">拒绝</button>
+      </view>
+      <view class="action-bar">
+        <button class="btn-delete" bindtap="onDelete">删除</button>
       </view>
     </block>
 

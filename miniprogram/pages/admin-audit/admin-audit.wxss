@@ -142,3 +142,20 @@
   font-size: 28rpx;
   color: var(--text-hint);
 }
+
+.user-actions {
+  margin-top: 16rpx;
+}
+
+.mini-btn {
+  background: #e8a5a5;
+  color: #fff;
+  border: none;
+  margin-right: 12rpx;
+  margin-top: 12rpx;
+}
+
+.danger {
+  background: #f44336;
+  color: #fff;
+}

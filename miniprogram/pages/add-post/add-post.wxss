@@ -36,6 +36,19 @@
   font-size: 28rpx;
 }
 
+.form-picker {
+  width: 100%;
+  min-height: 88rpx;
+  background-color: var(--background);
+  border: 2rpx solid var(--border);
+  border-radius: 16rpx;
+  padding: 24rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
 .form-textarea {
   width: 100%;
   height: 500rpx;

@@ -1,0 +1,13 @@
+<view class="container">
+  <view class="item" wx:for="{{list}}" wx:key="id">
+    <view class="title">{{item.title}}</view>
+    <view class="meta">{{item.time}} · 评论 {{item.commentCount}}</view>
+    <view class="content">{{item.content}}</view>
+    <view class="actions">
+      <button size="mini" bindtap="onView" data-id="{{item.id}}">查看</button>
+      <button size="mini" bindtap="onEdit" data-id="{{item.id}}">编辑</button>
+      <button class="danger" size="mini" bindtap="onDelete" data-id="{{item.id}}">删除</button>
+    </view>
+  </view>
+  <view class="empty" wx:if="{{!list.length}}">暂无我的帖子</view>
+</view>
